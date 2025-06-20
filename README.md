@@ -1,4 +1,6 @@
-# Containerize multi-tier application:  
+# Containerize multi-tier application: 
+  # Notes
+    - changes names of files so it is easier to identify
 
   # Scenario:
     - multi-tier application stack
