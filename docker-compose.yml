@@ -1,0 +1,51 @@
+version: "3.8"
+services:
+  vprodb:
+    container_name: vprodb
+    image: devopper000/vprofiledb
+    build:
+      context: ./Docker-files/db
+    ports:
+      - "3306:3306"
+    volumes:
+      - vprodbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "vprodbpass"
+
+  vprocache01:
+    image: memcached
+    container_name: vprocache01
+    ports:
+      - "11211:11211"
+  vpromq01:
+    image: rabbitmq
+    container_name: vpromq01
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+  vproapp:
+    container_name: vproapp
+    image: devopper000/vprofileapp
+    build:
+      context: ./Docker-files/app
+    ports:
+      - "8080:8080"
+    volumes:
+      - vproappdata:/usr/local/tomcat/webapps         # Mounting default tomcat webapps directory
+  vproweb:
+    container_name: vproweb
+    image: devopper000/vprofileweb
+    build:
+      context: ./Docker-files/web
+    ports:
+      - "80:80"  
+volumes:
+    vprodbdata: {}
+    vproappdata: {}
+
+  
+    
+        
+    
