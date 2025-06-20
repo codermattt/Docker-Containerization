@@ -7,10 +7,10 @@
       - specifies which files to present to user, from the artifact
   
   # NodeApi Dockerfile:
-    - Stage 1: Builds the frontend
-    - Stage 2: Prepares the backend with dependencies
-    - Final Stage: Combines just the necessary built artifacts from both stages into a smaller production image
-    - then CMD starts the container/application
+    - build artifact with node
+    - copy artifact to app directory
+    - then CMD starts the container
+
   
   # JavaApi Dockerfile:
     - install maven on WORKDIR, copy soure code on WORKDIR
