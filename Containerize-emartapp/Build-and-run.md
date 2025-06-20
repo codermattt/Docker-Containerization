@@ -20,11 +20,17 @@
   # Nginx:
     - default.conf to be loaded as volume to container
     - apigateway/default.conf file has configurations for routing to different container microservices
+    
+  # application Dockerfile:
+    - Stage 1: Builds the frontend (outputs to client/dist)
+    - Stage 2: Prepares the backend with dependencies
+    - Final Stage: Combines just the necessary built artifacts from both stages into a smaller production image
+    - CMD starts the application
   
   # Docker-compose file
     - the api, webapi and client containers need other containers to be running before it starts
     - nginx container has default.conf volume mapped to default.conf file of container
-    - set database name of emongo container to "epoc", as required by the nodeapi/config/keys.js file, for nodeapi           container to connect to a database named "epoc"
+    - set database name of emongo container to "epoc", as required by the nodeapi/config/keys.js file, for nodeapi container to connect to a database named        "epoc"
     - the nginx, emongo and emartdb containers used their default images off Dockerhub.
 
 # Build and Run:
