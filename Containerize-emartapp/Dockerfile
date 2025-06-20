@@ -1,14 +1,14 @@
-FROM node:14 AS web-build
-WORKDIR /usr/src/app
-COPY ./ ./client
-RUN cd client && npm install && npm run build --prod
+FROM openjdk:8 AS BUILD_IMAGE
+WORKDIR /usr/src/app/
+RUN apt update && apt install maven -y
+COPY ./ /usr/src/app/
+RUN mvn install -DskipTests
 
-# Use official nginx image as the base image
-FROM nginx:latest
+FROM openjdk:8
 
-# Copy the build output to replace the default nginx contents.
-COPY --from=web-build /usr/src/app/client/dist/client/ /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /usr/src/app/
+COPY --from=BUILD_IMAGE /usr/src/app/target/book-work-0.0.1-SNAPSHOT.jar ./book-work-0.0.1.jar
 
-# Expose port 4200
-EXPOSE 4200
+EXPOSE 9000
+ENTRYPOINT ["java","-jar","book-work-0.0.1.jar"]
+# Test
