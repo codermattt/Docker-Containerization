@@ -24,9 +24,9 @@
   # Docker-compose file:
     - set names for the services/containers and the paths for the Dockerfiles(for the services with Dockerfiles)
     - set host port to container port mapping + set environment variables for RabbitMQ and MySQL (vprodb)
+    - created volumes for the application container and the database container
     - containers will use image in specified Dockerhub account and repo, after it is pushed to Dockerhub
     - before it is pushed, it will use the Dockerfile path specified.
-    - After verifying the Dockerfiles' configuration worked for the application, it was pushed to Dockerhub
 
 # BUILD and RUN
   - built images inside an ubuntu VM
